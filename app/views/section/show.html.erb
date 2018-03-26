@@ -1,0 +1,46 @@
+<div class="col-12 text-center">
+  <h3 class="font-weight-bold"><%= @bidang.nama_bidang %></h3>
+</div>
+<div class="col-12" style="margin-top: 20px;">
+  <%= link_to 'Tambah kegiatan', new_section_activity_path(@bidang), class: 'btn btn-primary', style: 'border-radius: 0;' %>
+</div>
+<div class="col-12" style="margin-top: 20px;">
+  <% no = 0 %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Nama Kegiatan</th>
+        <th>Target Awal Pelaksanaan</th>
+        <th>Realisasi</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bidang.activities.each do |a| %>
+        <tr>
+          <td><%= no += 1 %></td>
+          <td><%= a.nama_kegiatan %></td>
+          <td><%= a.realisasi_pelaksanaan %></td>
+          <td><%= a.target_pelaksanaan %></td>
+          <td>
+            <% if a.status == 0 %>
+              <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
+            <% elsif a.status == 1 %>
+              <span class="text-success"><i class="fa fa-check-square"></i></span>
+            <% end %>
+          </td>
+          <td>
+              <i class="fa fa-pencil"></i> | <i class="fa fa-trash"></i>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="col-12">
+  <span class="text-danger">*</span> <i class="font-weight-bold">Keterangan</i> : <br />
+  <span class="text-success"><i class="fa fa-check-square"></i></span> = Sudah dilaksanakan <br />
+  <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span> = Belum dilaksanakan
+</div>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nama_bidang: MyString
+  total_kegiatan: 1
+  jumlah_kegiatan_tercapai: 1
+  jumlah_kegiatan_belum_tercapai: 1
+  jumlah_anggota: 1
+
+two:
+  nama_bidang: MyString
+  total_kegiatan: 1
+  jumlah_kegiatan_tercapai: 1
+  jumlah_kegiatan_belum_tercapai: 1
+  jumlah_anggota: 1
