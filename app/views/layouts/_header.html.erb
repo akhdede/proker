@@ -12,7 +12,7 @@
 				</li>
 				<li class="nav-item dropdown">
           <%= link_to 'Bidang', '#', class: 'text-white nav-link dropdown-toggle', id: 'navbarDropdown', data: {toggle: 'dropdown'}, aria: {haspopup: true, expanded: false} %>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="border-radius: 0;">
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to 'Pendidikan', section_path(Section.first), class: 'dropdown-item text-danger' %>
             <%= link_to 'Dakwah dan Sosial', section_path(Section.second), class: 'dropdown-item text-danger' %>
             <%= link_to 'Dana dan Usaha', section_path(Section.third), class: 'dropdown-item text-danger' %>

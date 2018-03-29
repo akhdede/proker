@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @bidang = Section.all
+    @section = Section.all
   end
 end

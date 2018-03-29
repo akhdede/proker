@@ -1,10 +1,12 @@
-<div class="col-12 text-center">
-  <h3 class="font-weight-bold"><%= @bidang.nama_bidang %></h3>
+<div class="col-12 text-secondary text-center">
+  <h3 class="font-weight-bold"><%= @section.nama_bidang %></h3>
 </div>
+
 <div class="col-12" style="margin-top: 20px;">
-  <%= link_to 'Tambah kegiatan', new_section_activity_path(@bidang), class: 'btn btn-primary', style: 'border-radius: 0;' %>
+  <%= link_to 'Tambah kegiatan', new_section_activity_path(@section), class: 'btn btn-primary' %>
 </div>
-<div class="col-12" style="margin-top: 20px;">
+
+<div class="col-12 text-secondary" style="margin-top: 20px;">
   <% no = 0 %>
   <table class="table table-bordered">
     <thead>
@@ -18,12 +20,12 @@
       </tr>
     </thead>
     <tbody>
-      <% @bidang.activities.each do |a| %>
+      <% @section.activities.each do |a| %>
         <tr>
           <td><%= no += 1 %></td>
           <td><%= a.nama_kegiatan %></td>
-          <td><%= a.realisasi_pelaksanaan %></td>
           <td><%= a.target_pelaksanaan %></td>
+          <td><%= a.realisasi_pelaksanaan %></td>
           <td>
             <% if a.status == 0 %>
               <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
@@ -32,7 +34,8 @@
             <% end %>
           </td>
           <td>
-              <i class="fa fa-pencil"></i> | <i class="fa fa-trash"></i>
+            <%= link_to edit_section_activity_path(@section, a.slug), title: 'Ubah' do %><i class="fa fa-pencil"></i><% end %> 
+            <%= link_to section_activity_path(@section, a.slug), method: :delete, data: { confirm: 'Apakah anda yakin akan menghapus kegiatan ini?' }, title: 'Hapus' do %><i class="fa fa-trash"></i><% end %> 
           </td>
         </tr>
       <% end %>

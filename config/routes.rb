@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
 
-  resources :section, only: [:show] do 
-    resources :activity, only: [:new, :create, :edit, :update, :destroy]
+  resources :sections, only: [:show] do 
+    resources :activities, except: [:index], controller: 'sections/activities'
   end
 end
