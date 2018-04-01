@@ -8,32 +8,40 @@
     <%= f.select :status, [['Belum dilaksanakan', 0], ['Sudah dilaksanakan', 1]], {}, {class: 'form-control', id: 'status', onclick: 'disableField(this.id, this.value)'} %><br />
 
     <%= f.label :rencana_awal_pelaksanaan %>
-    <%= f.date_field :target_pelaksanaan, class: 'form-control', id: 'date'  %>
+    <%= f.text_field :target_pelaksanaan, class: 'form-control monthpicker', placeholder: 'mm/yyyy' %>
     <br />
     
     <%= f.label :realisasi_pelaksanaan %>
-    <%= f.date_field :realisasi_pelaksanaan, class: 'form-control', id: 'realisasi'  %>
+    <%= f.text_field :realisasi_pelaksanaan, class: 'form-control monthpicker', id: 'realisasi', placeholder: 'mm/yyyy'  %>
+    <%= f.hidden_field :realisasi_pelaksanaan, id: 'realisasi_pelaksanaan'  %>
     <br />
 
-    <%= link_to 'Batal', section_path(@section), class: 'btn btn-secondary' %>
+    <%= link_to 'Batal', section_activities_path(@section), class: 'btn btn-secondary' %>
     <%= f.submit 'Simpan', class: 'btn btn-primary' %>
   <% end %>
 </div>
 
 <script>
-  document.getElementById("realisasi").readOnly = true;
+  document.getElementById("realisasi").disabled = true;
   function disableField(id, value)
   {
     s = document.getElementById(id).value;
 
     if(s == 0)
     {
-      document.getElementById("realisasi").readOnly = true;
+      document.getElementById("realisasi").disabled = true;
       document.getElementById("realisasi").value = null;
+      document.getElementById("realisasi_pelaksanaan").disabled = false;
+      document.getElementById("realisasi_pelaksanaan").value = null;
     }
     else if(s == 1)
     {
-      document.getElementById("realisasi").readOnly = false;
+      document.getElementById("realisasi").disabled = false;
+      document.getElementById("realisasi_pelaksanaan").disabled = true;
     }
   }
+
+  $(function () {
+    $('input.monthpicker').monthpicker({changeYear:true, minDate: "-3 M", maxDate: "+2 Y" });
+  });
 </script>

@@ -1,0 +1,66 @@
+<div class="col-12 text-secondary text-center">
+  <h3 class="font-weight-bold"><%= @section.nama_bidang %></h3>
+</div>
+
+<div class="col-9" style="margin-top: 20px;">
+  <%= link_to 'Tambah kegiatan', new_section_activity_path(@section), class: 'btn btn-primary', data: {turbolinks: false} %>
+</div>
+
+<div class="col-3" style="margin-top: 20px;">
+  <%= form_tag section_activities_path(@section, @activity), method: :get do %>
+    <div class="input-group">
+      <%= text_field_tag :search, nil, class: 'form-control', placeholder: 'Cari kegiatan' %>
+      <div class="input-group-append">
+        <%= submit_tag 'Cari', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="col-12 text-secondary" style="margin-top: 20px;">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Nama Kegiatan</th>
+        <th>Target Awal Pelaksanaan</th>
+        <th>Realisasi</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% no = ((params[:page] || 1).to_i - 1) * 5 %>
+      <% @activities.each do |a| %>
+        <tr>
+          <td><%= no += 1 %></td>
+          <td><%= a.nama_kegiatan %></td>
+          <td><%= a.target_pelaksanaan %></td>
+          <td><%= a.realisasi_pelaksanaan %></td>
+          <td>
+            <% if a.status == 0 and a.target_pelaksanaan[0...2] <= Date.today.strftime("%m") %>
+              <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
+            <% elsif a.status == 0 and a.target_pelaksanaan[0...2] > Date.today.strftime("%m") %>
+              <span class="text-info"><i class="fa fa-paper-plane"></i></span>
+            <% elsif a.status == 1 %>
+              <span class="text-success"><i class="fa fa-check-square"></i></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to edit_section_activity_path(@section, a.slug), title: 'Ubah', data: {turbolinks: false} do %><i class="fa fa-pencil text-secondary"></i><% end %> 
+            <%= link_to section_activity_path(@section, a.slug), method: :delete, data: { confirm: 'Apakah anda yakin akan menghapus kegiatan ini?' }, title: 'Hapus' do %><i class="fa fa-trash text-secondary"></i><% end %> 
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @activities, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
+<div class="col-12 text-secondary" style="font-size: 0.9rem;">
+  <span class="text-danger"><i class="fa fa-tags"></i></span> <i class="font-weight-bold">Keterangan</i> : <br />
+  <div class="ket-menu" style="margin-left: 19px;">
+    <span class="text-success"><i class="fa fa-check-square"></i></span> = Sudah dilaksanakan <br />
+    <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span> = Belum dilaksanakan <br />
+    <span class="text-info"><i class="fa fa-paper-plane"></i></span> = On Progress
+  </div>
+</div>

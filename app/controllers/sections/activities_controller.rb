@@ -1,6 +1,10 @@
 class Sections::ActivitiesController < ApplicationController
-  before_action :set_section, except: [:index, :show]
+  before_action :set_section, except: [:show]
   before_action :set_activity, only: [:edit, :update, :destroy]
+
+  def index
+    @activities = @section.activities.where('nama_kegiatan like ?', "%#{params[:search]}%").paginate(per_page: 5, page: params[:page])
+  end
 
   def new
     @activity = Activity.new
@@ -12,7 +16,7 @@ class Sections::ActivitiesController < ApplicationController
     @activity.section = @section
     @activity.save
 
-    redirect_to section_path(@section)
+    redirect_to section_activities_path(@section)
   end
 
   def edit
@@ -21,13 +25,13 @@ class Sections::ActivitiesController < ApplicationController
   def update
     @activity.update(activity_params)
     
-    redirect_to section_path(@section)
+    redirect_to section_activities_path(@section)
   end
 
   def destroy
     @activity.destroy
 
-    redirect_to section_path(@section)
+    redirect_to section_activities_path(@section)
   end
 
   private 
