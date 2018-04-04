@@ -15,5 +15,9 @@
  *= require jquery-ui
  *= require font-awesome
  */
+$nprogress-color: #fff;
+
+@import "nprogress";
+@import "nprogress-bootstrap";
 @import "bootstrap";
 @import "font-awesome";

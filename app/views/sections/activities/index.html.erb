@@ -1,3 +1,6 @@
+<% if flash[:notice].present? %>
+  <%= flash[:notice] %>
+<% end %>
 <div class="col-12 text-secondary text-center">
   <h3 class="font-weight-bold"><%= @section.nama_bidang %></h3>
 </div>
@@ -38,10 +41,12 @@
           <td><%= a.target_pelaksanaan %></td>
           <td><%= a.realisasi_pelaksanaan %></td>
           <td>
-            <% if a.status == 0 and a.target_pelaksanaan[0...2] <= Date.today.strftime("%m") %>
-              <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
-            <% elsif a.status == 0 and a.target_pelaksanaan[0...2] > Date.today.strftime("%m") %>
-              <span class="text-info"><i class="fa fa-paper-plane"></i></span>
+            <% if a.status == 0 %>
+              <% if a.target_pelaksanaan[0...2] <= Date.today.strftime("%m") %>
+                <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
+              <% elsif a.target_pelaksanaan[0...2] > Date.today.strftime("%m") %>
+                <span class="text-info"><i class="fa fa-paper-plane"></i></span>
+              <% end %>
             <% elsif a.status == 1 %>
               <span class="text-success"><i class="fa fa-check-square"></i></span>
             <% end %>

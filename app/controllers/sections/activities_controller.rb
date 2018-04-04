@@ -14,23 +14,29 @@ class Sections::ActivitiesController < ApplicationController
     @activity = Activity.new(activity_params)
 
     @activity.section = @section
-    @activity.save
-
-    redirect_to section_activities_path(@section)
+    if @activity.save
+      flash[:notice] = 'Kegiatan berhasil ditambahkan!'
+      redirect_to section_activities_path(@section)
+    else
+      render 'new'
+    end
   end
 
   def edit
   end
 
   def update
-    @activity.update(activity_params)
-    
-    redirect_to section_activities_path(@section)
+    if @activity.update(activity_params)
+      flash[:notice] = 'Kegiatan berhasil diupdate!'
+      redirect_to section_activities_path(@section)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
     @activity.destroy
-
+    flash[:notice] = 'Kegiatan berhasil dihapus!'
     redirect_to section_activities_path(@section)
   end
 

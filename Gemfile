@@ -31,11 +31,12 @@ gem 'devise'
 gem 'counter_cache_with_conditions'
 gem 'bootstrap'
 gem 'jquery-rails'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'jquery-ui-rails'
-gem "jquery-monthpicker-rails"
+gem 'jquery-monthpicker-rails'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
+gem 'nprogress-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
