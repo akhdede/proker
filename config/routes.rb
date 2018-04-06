@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
 
-  resources :sections, only: [:show] do 
+  resources :sections, except: [:new], controller: 'sections' do 
     resources :activities, controller: 'sections/activities'
   end
 

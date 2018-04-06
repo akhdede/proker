@@ -1,17 +1,33 @@
 <div class="col-12">
   <%= form_for [@section, @activity] do |f| %>
+
     <%= f.label :nama_kegiatan %>
+    <% if @activity.errors[:nama_kegiatan].any? %>
+      <span class="text-danger"><%= @activity.errors[:nama_kegiatan].first %></span>
+    <% end %>
     <%= f.text_field :nama_kegiatan, class: 'form-control', placeholder: 'Nama kegiatan' %>
     <br />
     
-    <%= f.label :status_kegiatan %><br />
-    <%= f.select :status, [['Belum dilaksanakan', 0], ['Sudah dilaksanakan', 1]], {}, {class: 'form-control', id: 'status', onclick: 'disableField(this.id, this.value)'} %><br />
+    <%= f.label :status_kegiatan %>
+    <br />
+    <% if @activity.errors[:status].any? %>
+      <span class="text-danger"><%= @activity.errors[:status].first %></span>
+    <% end %>
+    <%= f.select :status, [['Pilihan...', ''], ['Belum dilaksanakan', 0], ['Sudah dilaksanakan', 1]], {}, {class: 'form-control', id: 'status', onclick: 'disableField(this.id, this.value)'} %>
+    <br />
 
     <%= f.label :rencana_awal_pelaksanaan %>
+    <br />
+    <% if @activity.errors[:target_pelaksanaan].any? %>
+      <span class="text-danger"><%= @activity.errors[:target_pelaksanaan].first %></span>
+    <% end %>
     <%= f.text_field :target_pelaksanaan, class: 'form-control monthpicker', placeholder: 'mm/yyyy' %>
     <br />
     
     <%= f.label :realisasi_pelaksanaan %>
+    <% if @activity.errors[:realisasi_pelaksanaan].any? %>
+      <span class="text-danger"><%= @activity.errors[:realisasi_pelaksanaan].first %></span>
+    <% end %>
     <%= f.text_field :realisasi_pelaksanaan, class: 'form-control monthpicker', id: 'realisasi', placeholder: 'mm/yyyy'  %>
     <%= f.hidden_field :realisasi_pelaksanaan, id: 'realisasi_pelaksanaan'  %>
     <br />
@@ -30,7 +46,6 @@
     if(s == 0)
     {
       document.getElementById("realisasi").disabled = true;
-      document.getElementById("realisasi").value = null;
       document.getElementById("realisasi_pelaksanaan").disabled = false;
       document.getElementById("realisasi_pelaksanaan").value = null;
     }

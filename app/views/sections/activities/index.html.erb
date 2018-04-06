@@ -1,5 +1,12 @@
 <% if flash[:notice].present? %>
-  <%= flash[:notice] %>
+  <div class="col-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong><%= flash[:notice] %></strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
 <% end %>
 <div class="col-12 text-secondary text-center">
   <h3 class="font-weight-bold"><%= @section.nama_bidang %></h3>
@@ -33,28 +40,34 @@
       </tr>
     </thead>
     <tbody>
-      <% no = ((params[:page] || 1).to_i - 1) * 5 %>
-      <% @activities.each do |a| %>
-        <tr>
-          <td><%= no += 1 %></td>
-          <td><%= a.nama_kegiatan %></td>
-          <td><%= a.target_pelaksanaan %></td>
-          <td><%= a.realisasi_pelaksanaan %></td>
-          <td>
-            <% if a.status == 0 %>
-              <% if a.target_pelaksanaan[0...2] <= Date.today.strftime("%m") %>
-                <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
-              <% elsif a.target_pelaksanaan[0...2] > Date.today.strftime("%m") %>
-                <span class="text-info"><i class="fa fa-paper-plane"></i></span>
+      <% if @activities.present? %>
+        <% no = ((params[:page] || 1).to_i - 1) * 5 %>
+        <% @activities.each do |a| %>
+          <tr>
+            <td><%= no += 1 %></td>
+            <td><%= a.nama_kegiatan %></td>
+            <td><%= a.target_pelaksanaan %></td>
+            <td><%= a.realisasi_pelaksanaan %></td>
+            <td>
+              <% if a.status == 0 %>
+                <% if a.target_pelaksanaan[0...2] <= Date.today.strftime("%m") %>
+                  <span class="text-warning"><i class="fa fa-exclamation-triangle"></i></span>
+                <% elsif a.target_pelaksanaan[0...2] > Date.today.strftime("%m") %>
+                  <span class="text-info"><i class="fa fa-paper-plane"></i></span>
+                <% end %>
+              <% elsif a.status == 1 %>
+                <span class="text-success"><i class="fa fa-check-square"></i></span>
               <% end %>
-            <% elsif a.status == 1 %>
-              <span class="text-success"><i class="fa fa-check-square"></i></span>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to edit_section_activity_path(@section, a.slug), title: 'Ubah', data: {turbolinks: false} do %><i class="fa fa-pencil text-secondary"></i><% end %> 
-            <%= link_to section_activity_path(@section, a.slug), method: :delete, data: { confirm: 'Apakah anda yakin akan menghapus kegiatan ini?' }, title: 'Hapus' do %><i class="fa fa-trash text-secondary"></i><% end %> 
-          </td>
+            </td>
+            <td>
+              <%= link_to edit_section_activity_path(@section, a.slug), title: 'Ubah', data: {turbolinks: false} do %><i class="fa fa-pencil text-secondary"></i><% end %> 
+              <%= link_to section_activity_path(@section, a.slug), method: :delete, data: { confirm: 'Apakah anda yakin akan menghapus kegiatan ini?' }, title: 'Hapus' do %><i class="fa fa-trash text-secondary"></i><% end %> 
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td style="border: none;"><span class="text-danger">Kegiatan belum ditambahkan!</span></td>
         </tr>
       <% end %>
     </tbody>

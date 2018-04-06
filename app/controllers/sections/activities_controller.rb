@@ -1,4 +1,5 @@
 class Sections::ActivitiesController < ApplicationController
+  before_action :set_header
   before_action :set_section, except: [:show]
   before_action :set_activity, only: [:edit, :update, :destroy]
 
@@ -41,6 +42,9 @@ class Sections::ActivitiesController < ApplicationController
   end
 
   private 
+    def set_header
+      @sections = Section.all
+    end
 
     def set_section
       @section = Section.friendly.find(params[:section_id])
