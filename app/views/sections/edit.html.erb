@@ -14,7 +14,7 @@
     <div class="form-group mx-sm-3 mb-2">
       <%= f.text_field :nama_bidang, class: 'form-control', placeholder: 'Nama bidang' %>
     </div>
-    <%= f.submit 'Tambah', class: 'btn btn-primary mb-2' %>
+    <%= f.submit 'Update', class: 'btn btn-primary mb-2' %>
   <% end %>
 
   <div class="col-12">
@@ -22,17 +22,7 @@
   </div>
 
   <div class="col-12">
-    <% if @sections.present? %>
-      <% @sections.each do |s| %>
-          <div class="alert alert-dark">
-            <h6 class="text-secondary font-weight-bold">Bidang <%= s.nama_bidang %></h6>
-            <%= link_to 'Edit', edit_section_path(s), class: 'text-primary' %>
-            <span class="text-secondary"> | </span>
-            <%= link_to 'Hapus', section_path(s), class: 'text-danger', method: :delete, data: {confirm: ('Apakah anda yakin akan menghapus bidang ini?')} %>
-          </div>
-      <% end %>
-    <% else %>
-      <h5 class="font-weight-bold text-danger">Bidang belum ditambahkan!</h5>
-    <% end %>
+    <%= link_to 'Kembali', sections_path, class: 'btn btn-secondary' %>
   </div>
+
 </div>

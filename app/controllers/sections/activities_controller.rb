@@ -1,4 +1,5 @@
 class Sections::ActivitiesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_header
   before_action :set_section, except: [:show]
   before_action :set_activity, only: [:edit, :update, :destroy]
